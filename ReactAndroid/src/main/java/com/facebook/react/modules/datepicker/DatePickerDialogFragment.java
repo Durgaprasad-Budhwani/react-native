@@ -26,8 +26,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
+import com.microsoft.intune.mam.client.app.MAMDialogFragment;
+
 @SuppressLint("ValidFragment")
-public class DatePickerDialogFragment extends DialogFragment {
+public class DatePickerDialogFragment extends MAMDialogFragment {
 
   /**
    * Minimum date supported by {@link DatePicker}, 01 Jan 1900
@@ -40,7 +42,7 @@ public class DatePickerDialogFragment extends DialogFragment {
   private OnDismissListener mOnDismissListener;
 
   @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
+  public Dialog onMAMCreateDialog(Bundle savedInstanceState) {
     Bundle args = getArguments();
     return createDialog(args, getActivity(), mOnDateSetListener);
   }

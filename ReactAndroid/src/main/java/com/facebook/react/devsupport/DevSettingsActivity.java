@@ -14,15 +14,16 @@ import android.preference.PreferenceActivity;
 
 import com.facebook.react.R;
 import com.facebook.react.common.DebugServerException;
+import com.microsoft.intune.mam.client.preference.MAMPreferenceActivity;
 
 /**
  * Activity that display developers settings. Should be added to the debug manifest of the app. Can
  * be triggered through the developers option menu displayed by {@link DevSupportManager}.
  */
-public class DevSettingsActivity extends PreferenceActivity {
+public class DevSettingsActivity extends MAMPreferenceActivity {
 
   @Override
-  public void onCreate(Bundle savedInstanceState) {
+  public void onMAMCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setTitle(R.string.catalyst_settings_title);
     addPreferencesFromResource(R.xml.preferences);

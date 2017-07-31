@@ -38,6 +38,7 @@ import com.facebook.react.common.ReactConstants;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
 import com.facebook.react.devsupport.interfaces.StackFrame;
 import com.facebook.react.devsupport.RedBoxHandler.ReportCompletedListener;
+import com.microsoft.intune.mam.client.app.MAMDialog;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -48,7 +49,7 @@ import org.json.JSONObject;
 /**
  * Dialog for displaying JS errors in an eye-catching form (red box).
  */
-/* package */ class RedBoxDialog extends Dialog implements AdapterView.OnItemClickListener {
+/* package */ class RedBoxDialog extends MAMDialog implements AdapterView.OnItemClickListener {
 
   private final DevSupportManager mDevSupportManager;
   private final DoubleTapReloadRecognizer mDoubleTapReloadRecognizer;

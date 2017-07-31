@@ -134,14 +134,16 @@ task downloadJSCHeaders(type: Download) {
 }
 
 // Create Android.mk library module based on so files from mvn + include headers fetched from webkit.org
-task prepareJSC(dependsOn: dependenciesPath ? [] : [downloadJSCHeaders]) << {
-    copy {
-        from zipTree(configurations.compile.fileCollection { dep -> dep.name == 'android-jsc' }.singleFile)
-        from dependenciesPath ? "$dependenciesPath/jsc-headers" : {downloadJSCHeaders.dest}
-        from 'src/main/jni/third-party/jsc/Android.mk'
-        include 'jni/**/*.so', '*.h', 'Android.mk'
-        filesMatching('*.h', { fname -> fname.path = "JavaScriptCore/${fname.path}"})
-        into "$thirdPartyNdkDir/jsc";
+task prepareJSC(dependsOn: dependenciesPath ? [] : [downloadJSCHeaders]) {
+    doLast {
+        copy {
+            from zipTree(configurations.compile.fileCollection { dep -> dep.name == 'android-jsc' }.singleFile)
+            from dependenciesPath ? "$dependenciesPath/jsc-headers" : {downloadJSCHeaders.dest}
+            from 'src/main/jni/third-party/jsc/Android.mk'
+            include 'jni/**/*.so', '*.h', 'Android.mk'
+            filesMatching('*.h', { fname -> fname.path = "JavaScriptCore/${fname.path}"})
+            into "$thirdPartyNdkDir/jsc";
+        }
     }
 }
 
@@ -174,7 +176,8 @@ def findNdkBuildFullPath() {
     if (ndkDir) {
         return new File(ndkDir, getNdkBuildName()).getAbsolutePath()
     }
-    return null
+    return "/Users/durgaprasad/Library/Android/ndk-bundle";
+    // return null
 }
 
 def getNdkBuildFullPath() {
@@ -232,7 +235,7 @@ task packageReactNdkLibsForBuck(dependsOn: packageReactNdkLibs, type: Copy) {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         minSdkVersion 16
@@ -277,6 +280,7 @@ android {
 }
 
 dependencies {
+    compile fileTree(dir: "libs", include: ["*.jar"])
     compile fileTree(dir: 'src/main/third-party/java/infer-annotations/', include: ['*.jar'])
     compile 'javax.inject:javax.inject:1'
     compile 'com.android.support:appcompat-v7:23.0.1'

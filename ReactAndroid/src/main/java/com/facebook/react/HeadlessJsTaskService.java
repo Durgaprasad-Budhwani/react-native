@@ -27,6 +27,7 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.jstasks.HeadlessJsTaskEventListener;
 import com.facebook.react.jstasks.HeadlessJsTaskConfig;
 import com.facebook.react.jstasks.HeadlessJsTaskContext;
+import com.microsoft.intune.mam.client.app.MAMService;
 
 /**
  * Base class for running JS without a UI. Generally, you only need to override
@@ -41,13 +42,13 @@ import com.facebook.react.jstasks.HeadlessJsTaskContext;
  * {@link BroadcastReceiver#onReceive}, to make sure the device doesn't go to sleep before the
  * service is started.
  */
-public abstract class HeadlessJsTaskService extends Service implements HeadlessJsTaskEventListener {
+public abstract class HeadlessJsTaskService extends MAMService implements HeadlessJsTaskEventListener {
 
   private final Set<Integer> mActiveTasks = new CopyOnWriteArraySet<>();
   private static @Nullable PowerManager.WakeLock sWakeLock;
 
   @Override
-  public int onStartCommand(Intent intent, int flags, int startId) {
+  public int onMAMStartCommand(Intent intent, int flags, int startId) {
     HeadlessJsTaskConfig taskConfig = getTaskConfig(intent);
     if (taskConfig != null) {
       startTask(taskConfig);
@@ -82,7 +83,7 @@ public abstract class HeadlessJsTaskService extends Service implements HeadlessJ
   }
 
   @Override
-  public @Nullable IBinder onBind(Intent intent) {
+  public @Nullable IBinder onMAMBind(Intent intent) {
     return null;
   }
 

@@ -18,10 +18,12 @@ import android.content.DialogInterface;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.microsoft.intune.mam.client.app.MAMDialogFragment;
+
 /**
  * A fragment used to display the dialog.
  */
-public class AlertFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class AlertFragment extends MAMDialogFragment implements DialogInterface.OnClickListener {
 
   /* package */ static final String ARG_TITLE = "title";
   /* package */ static final String ARG_MESSAGE = "message";
@@ -68,7 +70,7 @@ public class AlertFragment extends DialogFragment implements DialogInterface.OnC
   }
 
   @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState) {
+  public Dialog onMAMCreateDialog(Bundle savedInstanceState) {
     return createDialog(getActivity(), getArguments(), this);
   }
 
