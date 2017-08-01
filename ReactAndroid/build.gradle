@@ -176,8 +176,8 @@ def findNdkBuildFullPath() {
     if (ndkDir) {
         return new File(ndkDir, getNdkBuildName()).getAbsolutePath()
     }
-    return "/Users/durgaprasad/Library/Android/ndk-bundle";
-    // return null
+    
+    return null
 }
 
 def getNdkBuildFullPath() {
